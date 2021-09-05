@@ -1,6 +1,9 @@
 const cron = require('node-cron');
 const fetch = require('node-fetch');
 const nodemailer = require('nodemailer');
+const express = require('express');
+const app = express()
+
 
 const MESSENTE_USERNAME = '';
 const MESSENTE_PASSWORD = '';
@@ -14,6 +17,9 @@ const GMAIL_CREDENTIALS = {
     user: '',
     pass: ''
 };
+
+const maxLogLines = 50;
+var logHistory = [];
 
 cron.schedule('5 * 8-21 * * *', () => {
     fetchProductList()
@@ -103,6 +109,16 @@ async function fetchProductList() {
 }
 
 function log(text) {
-    console.log(getDateTimeTag() + text);
+    let line = getDateTimeTag() + text;
+    console.log(line);
+    if (logHistroy.length > maxLogLines) {
+        logHistory = [];
+    }
+    logHistory.push(line);
 }
 
+app.get('/logs', (req, res) => {
+    res.send(JSON.stringify(logHistory));
+})
+
+app.listen(8080);
