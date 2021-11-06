@@ -7,4 +7,6 @@ the console came in stock.
 
 This is a slightly modified version of lkallases approach by providing the request with a user-agent that is provided when the request is made from Safari.
 
+Exposes an endpoint to query last 50 lines from the logs. This was used to check whether the fetcher was working.
+
 Whatever you do with this code is on you. I have not ran this since September so I do not know if this approach is still working.
